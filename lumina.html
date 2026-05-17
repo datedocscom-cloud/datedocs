@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lumina — Meaningful Connections for Physicians</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sage: #4A7C59;
+  --sage-light: #7DAA8A;
+  --sage-pale: #EBF2ED;
+  --sage-mid: #C4D9CB;
+  --cream: #FAF8F3;
+  --warm-white: #FFFFFF;
+  --ink: #1C2B24;
+  --ink-mid: #3D5246;
+  --ink-light: #6B8070;
+  --gold: #B8956A;
+  --gold-light: #E8D5BA;
+  --gold-pale: #FDF6EC;
+  --blush: #C4877A;
+  --blush-pale: #F5EDEB;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Jost', sans-serif;
+  --radius: 4px;
+  --radius-lg: 12px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 3rem;
+  background: rgba(250, 248, 243, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(74, 124, 89, 0.12);
+  transition: padding var(--transition);
+}
+.nav-logo {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+.nav-logo em { font-style: italic; color: var(--sage); }
+.nav-links { display: flex; align-items: center; gap: 2.5rem; }
+.nav-links a {
+  font-size: 0.8rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-light); text-decoration: none; transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--sage); }
+.nav-cta {
+  padding: 0.6rem 1.6rem;
+  background: var(--sage);
+  color: white !important;
+  border-radius: 2px;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.1em !important;
+  transition: background var(--transition) !important;
+}
+.nav-cta:hover { background: var(--ink-mid) !important; color: white !important; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 8rem 3rem 4rem;
+  gap: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 55%; height: 100%;
+  background: linear-gradient(135deg, var(--sage-pale) 0%, #D9E8DC 100%);
+  z-index: 0;
+}
+.hero-text { position: relative; z-index: 1; }
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage);
+  border-left: 2px solid var(--sage);
+  padding-left: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+.hero h1 em { font-style: italic; color: var(--sage); }
+.hero-sub {
+  font-size: 1rem; font-weight: 300; color: var(--ink-light);
+  max-width: 420px; line-height: 1.75;
+  margin-bottom: 2.5rem;
+}
+.hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.btn-primary {
+  padding: 0.85rem 2.25rem;
+  background: var(--sage); color: white;
+  font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; border-radius: 2px; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: background var(--transition), transform var(--transition);
+}
+.btn-primary:hover { background: var(--ink-mid); transform: translateY(-1px); }
+.btn-ghost {
+  padding: 0.85rem 2.25rem;
+  background: transparent; color: var(--ink);
+  font-family: var(--font-sans); font-size: 0.82rem; font-weight: 400;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid rgba(28, 43, 36, 0.25); border-radius: 2px; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: border-color var(--transition), color var(--transition);
+}
+.btn-ghost:hover { border-color: var(--sage); color: var(--sage); }
+
+.hero-visual { position: relative; z-index: 1; }
+.hero-cards { display: flex; flex-direction: column; gap: 1rem; max-width: 380px; margin: 0 auto; }
+.profile-preview {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  border: 1px solid rgba(74, 124, 89, 0.1);
+  animation: floatIn 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.profile-preview:nth-child(1) { animation-delay: 0.3s; }
+.profile-preview:nth-child(2) { animation-delay: 0.5s; margin-left: 2rem; }
+.profile-preview:nth-child(3) { animation-delay: 0.7s; }
+
+@keyframes floatIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.avatar-circle {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; flex-shrink: 0;
+}
+.av-sage { background: var(--sage-pale); }
+.av-gold { background: var(--gold-pale); }
+.av-blush { background: var(--blush-pale); }
+.preview-name { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 500; color: var(--ink); }
+.preview-meta { font-size: 0.78rem; color: var(--ink-light); margin-top: 2px; }
+.preview-compat {
+  margin-left: auto;
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--sage);
+  background: var(--sage-pale);
+  padding: 0.25rem 0.6rem; border-radius: 20px;
+}
+.verified-tag {
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--sage); background: var(--sage-pale);
+  padding: 0.15rem 0.5rem; border-radius: 2px;
+  display: inline-block; margin-top: 4px;
+}
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+  background: var(--ink);
+  padding: 2.5rem 3rem;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; text-align: center;
+}
+.stat-num {
+  font-family: var(--font-serif); font-size: 2.5rem; font-weight: 300;
+  color: var(--gold-light); line-height: 1;
+}
+.stat-label {
+  font-size: 0.75rem; font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); margin-top: 0.5rem;
+}
+
+/* ─── SECTION SHARED ─── */
+section { padding: 6rem 3rem; }
+.section-eyebrow {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 1rem;
+}
+.section-title {
+  font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 300; color: var(--ink); line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+.section-title em { font-style: italic; color: var(--sage); }
+.section-sub {
+  font-size: 0.95rem; font-weight: 300; color: var(--ink-light);
+  max-width: 540px; line-height: 1.8;
+}
+
+/* ─── HOW IT WORKS ─── */
+.how-it-works { background: white; }
+.hiw-inner { max-width: 1100px; margin: 0 auto; }
+.hiw-header { text-align: center; margin-bottom: 4rem; }
+.hiw-header .section-sub { margin: 0 auto; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+.step {
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(74, 124, 89, 0.12);
+  border-radius: var(--radius-lg);
+  position: relative;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.step:hover { border-color: var(--sage-mid); transform: translateY(-4px); }
+.step-num {
+  font-family: var(--font-serif); font-size: 4rem; font-weight: 300;
+  color: var(--sage-pale); line-height: 1;
+  position: absolute; top: 1.5rem; right: 1.75rem;
+}
+.step-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--sage-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; margin-bottom: 1.5rem;
+}
+.step h3 { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 500; color: var(--ink); margin-bottom: 0.75rem; }
+.step p { font-size: 0.88rem; font-weight: 300; color: var(--ink-light); line-height: 1.75; }
+
+/* ─── VALUES / ETHICS ─── */
+.ethics { background: var(--cream); }
+.ethics-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+}
+.ethics-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+.ethic-item {
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  padding: 1.5rem;
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(74, 124, 89, 0.1);
+  transition: border-color var(--transition);
+}
+.ethic-item:hover { border-color: var(--sage-mid); }
+.ethic-icon {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: var(--sage-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--sage);
+}
+.ethic-title { font-size: 0.9rem; font-weight: 500; color: var(--ink); margin-bottom: 0.35rem; }
+.ethic-desc { font-size: 0.83rem; font-weight: 300; color: var(--ink-light); line-height: 1.7; }
+.ethics-pledge {
+  background: var(--sage);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  color: white;
+  position: sticky; top: 7rem;
+}
+.pledge-quote {
+  font-family: var(--font-serif); font-size: 1.75rem; font-weight: 300; font-style: italic;
+  line-height: 1.4; color: white; margin-bottom: 2rem;
+  border-left: 2px solid rgba(255,255,255,0.35); padding-left: 1.25rem;
+}
+.pledge-points { display: flex; flex-direction: column; gap: 1rem; }
+.pledge-point { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.85); line-height: 1.6; }
+.pledge-check { color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-top: 3px; flex-shrink: 0; }
+
+/* ─── PROFILES SHOWCASE ─── */
+.profiles-section { background: white; }
+.profiles-inner { max-width: 1100px; margin: 0 auto; }
+.profiles-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: gap; }
+.profiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.profile-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(74, 124, 89, 0.1);
+  transition: transform var(--transition), border-color var(--transition);
+  background: white;
+}
+.profile-card:hover { transform: translateY(-6px); border-color: var(--sage-mid); }
+.card-header {
+  padding: 2.5rem 1.5rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.card-header.bg-sage { background: var(--sage-pale); }
+.card-header.bg-gold { background: var(--gold-pale); }
+.card-header.bg-blush { background: var(--blush-pale); }
+.card-av {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: white; display: flex; align-items: center; justify-content: center;
+  font-size: 1.75rem; flex-shrink: 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.card-name-block .name { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--ink); }
+.card-name-block .spec { font-size: 0.78rem; color: var(--ink-light); margin-top: 2px; }
+.card-verified { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--sage); background: white; padding: 0.2rem 0.5rem; border-radius: 2px; margin-top: 5px; display: inline-block; }
+.card-body-pad { padding: 1.25rem 1.5rem 1.5rem; }
+.card-about { font-size: 0.85rem; font-weight: 300; color: var(--ink-light); line-height: 1.7; margin-bottom: 1rem; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
+.ctag { font-size: 0.72rem; padding: 0.25rem 0.65rem; border-radius: 20px; border: 1px solid rgba(74,124,89,0.2); color: var(--ink-mid); }
+.card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid rgba(74,124,89,0.08); }
+.card-city { font-size: 0.78rem; color: var(--ink-light); }
+.card-compat { font-size: 0.78rem; font-weight: 500; color: var(--sage); }
+
+/* ─── APP PREVIEW (TABS) ─── */
+.app-preview { background: var(--cream); }
+.app-preview-inner { max-width: 1100px; margin: 0 auto; }
+.app-frame {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(74, 124, 89, 0.15);
+  overflow: hidden;
+  margin-top: 3rem;
+  box-shadow: 0 20px 60px rgba(28,43,36,0.08);
+}
+.app-tabs-nav { display: flex; border-bottom: 1px solid rgba(74,124,89,0.1); padding: 0 1.5rem; }
+.app-tab {
+  padding: 1rem 1.25rem; font-size: 0.82rem; font-weight: 400; letter-spacing: 0.05em;
+  color: var(--ink-light); cursor: pointer; border-bottom: 2px solid transparent;
+  background: none; border-top: none; border-left: none; border-right: none;
+  transition: color var(--transition);
+}
+.app-tab.active { color: var(--sage); border-bottom-color: var(--sage); font-weight: 500; }
+.app-content { padding: 2rem; min-height: 380px; }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+.discover-layout { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; }
+.filter-sidebar h4 { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
+.filter-options { display: flex; flex-direction: column; gap: 0.5rem; }
+.filter-opt {
+  padding: 0.6rem 0.85rem; border-radius: var(--radius); font-size: 0.83rem;
+  cursor: pointer; border: 1px solid transparent; color: var(--ink-light);
+  transition: all var(--transition); background: none; text-align: left;
+}
+.filter-opt:hover { background: var(--sage-pale); color: var(--ink); }
+.filter-opt.active { background: var(--sage-pale); color: var(--sage); border-color: var(--sage-mid); font-weight: 500; }
+.mini-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 1rem; }
+.mini-card {
+  border: 1px solid rgba(74,124,89,0.12); border-radius: var(--radius-lg);
+  overflow: hidden; cursor: pointer; transition: border-color var(--transition), transform var(--transition);
+}
+.mini-card:hover { border-color: var(--sage-mid); transform: translateY(-2px); }
+.mini-top { padding: 1.25rem 1rem 0.75rem; display: flex; align-items: center; gap: 0.75rem; }
+.mini-top.gs { background: var(--sage-pale); }
+.mini-top.gp { background: var(--gold-pale); }
+.mini-top.gb { background: var(--blush-pale); }
+.mini-av { width: 38px; height: 38px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.mini-name { font-size: 0.85rem; font-weight: 500; color: var(--ink); }
+.mini-spec { font-size: 0.72rem; color: var(--ink-light); }
+.mini-body { padding: 0.75rem 1rem 1rem; }
+.mini-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 0.75rem; }
+.mini-tag { font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 10px; background: var(--sage-pale); color: var(--ink-mid); }
+.mini-action {
+  width: 100%; padding: 0.45rem; font-size: 0.75rem; font-weight: 500;
+  background: var(--sage); color: white; border: none; border-radius: var(--radius); cursor: pointer;
+  transition: background var(--transition);
+}
+.mini-action:hover { background: var(--ink-mid); }
+
+.match-list-ui { display: flex; flex-direction: column; gap: 0.85rem; }
+.match-item {
+  display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem;
+  border: 1px solid rgba(74,124,89,0.1); border-radius: var(--radius-lg); cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.match-item:hover { border-color: var(--sage-mid); background: var(--sage-pale); }
+.match-item.new { background: var(--sage-pale); border-color: var(--sage-mid); }
+.match-av { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+.match-av.ms { background: var(--sage-pale); } .match-av.mg { background: var(--gold-pale); } .match-av.mb { background: var(--blush-pale); }
+.match-name { font-size: 0.9rem; font-weight: 500; color: var(--ink); }
+.match-msg { font-size: 0.8rem; color: var(--ink-light); margin-top: 2px; }
+.match-right { margin-left: auto; text-align: right; }
+.match-time { font-size: 0.72rem; color: var(--ink-light); }
+.match-compat { font-size: 0.72rem; font-weight: 500; color: var(--sage); background: var(--sage-pale); padding: 0.2rem 0.5rem; border-radius: 10px; margin-top: 4px; display: inline-block; }
+.unread-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); margin: 4px 0 0 auto; }
+
+.profile-form-ui { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.pledge-aside {
+  background: var(--sage-pale); border-radius: var(--radius-lg); padding: 1.75rem;
+  border: 1px solid var(--sage-mid);
+}
+.pledge-aside-title { font-family: var(--font-serif); font-size: 1.3rem; color: var(--ink); margin-bottom: 0.75rem; }
+.pledge-aside-text { font-size: 0.83rem; color: var(--ink-light); line-height: 1.75; }
+.form-fields { display: flex; flex-direction: column; gap: 1rem; }
+.fi { display: flex; flex-direction: column; gap: 4px; }
+.fi label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); }
+.fi input, .fi select, .fi textarea {
+  padding: 0.6rem 0.85rem; font-size: 0.85rem; font-family: var(--font-sans);
+  border: 1px solid rgba(74,124,89,0.2); border-radius: var(--radius);
+  background: white; color: var(--ink);
+  transition: border-color var(--transition);
+}
+.fi input:focus, .fi select:focus, .fi textarea:focus { outline: none; border-color: var(--sage); }
+.fi textarea { min-height: 70px; resize: vertical; }
+.fi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.save-btn {
+  padding: 0.75rem 1.75rem; background: var(--sage); color: white; border: none;
+  border-radius: var(--radius); font-size: 0.82rem; font-weight: 500; cursor: pointer;
+  transition: background var(--transition); margin-top: 0.5rem; align-self: flex-start;
+}
+.save-btn:hover { background: var(--ink-mid); }
+
+/* ─── TESTIMONIALS ─── */
+.testimonials { background: var(--ink); padding: 6rem 3rem; }
+.test-inner { max-width: 1100px; margin: 0 auto; }
+.test-header { text-align: center; margin-bottom: 4rem; }
+.test-header .section-title { color: white; }
+.test-header .section-title em { color: var(--gold-light); }
+.test-header .section-eyebrow { color: var(--gold); }
+.test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.testimonial {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg); padding: 2rem;
+}
+.test-quote { font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; font-weight: 300; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 1.5rem; }
+.test-mark { font-size: 3rem; font-family: Georgia; color: var(--gold); line-height: 0.5; margin-bottom: 1rem; display: block; }
+.test-author { display: flex; align-items: center; gap: 0.85rem; }
+.test-av { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.test-av.ts { background: rgba(74,124,89,0.2); }
+.test-av.tg { background: rgba(184,149,106,0.2); }
+.test-av.tb { background: rgba(196,135,122,0.2); }
+.test-name { font-size: 0.85rem; font-weight: 500; color: white; }
+.test-spec { font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+
+/* ─── JOIN CTA ─── */
+.join-cta { background: var(--cream); text-align: center; padding: 8rem 3rem; }
+.cta-inner { max-width: 600px; margin: 0 auto; }
+.cta-divider { width: 40px; height: 1px; background: var(--sage); margin: 0 auto 2rem; }
+.join-cta h2 {
+  font-family: var(--font-serif); font-size: clamp(2.5rem, 4vw, 3.75rem);
+  font-weight: 300; color: var(--ink); line-height: 1.2; margin-bottom: 1.25rem;
+}
+.join-cta h2 em { font-style: italic; color: var(--sage); }
+.join-cta p { font-size: 0.95rem; font-weight: 300; color: var(--ink-light); line-height: 1.8; margin-bottom: 2.5rem; }
+.cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.cta-note { font-size: 0.78rem; color: var(--ink-light); margin-top: 1.25rem; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink); padding: 3.5rem 3rem;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+}
+.footer-brand .logo { font-family: var(--font-serif); font-size: 1.5rem; color: white; }
+.footer-brand .logo em { font-style: italic; color: var(--sage-light); }
+.footer-tagline { font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-top: 0.75rem; line-height: 1.6; max-width: 220px; }
+.footer-col h5 { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+.footer-col a { display: block; font-size: 0.83rem; color: rgba(255,255,255,0.65); text-decoration: none; margin-bottom: 0.5rem; transition: color var(--transition); }
+.footer-col a:hover { color: var(--sage-light); }
+.footer-bottom {
+  background: var(--ink); padding: 1.25rem 3rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.75rem; color: rgba(255,255,255,0.3);
+}
+
+/* ─── ANIMATIONS ─── */
+.fade-up {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1.25rem; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+  .hero::before { display: none; }
+  .hero-visual { display: none; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  section { padding: 4rem 1.5rem; }
+  .steps-grid, .profiles-grid { grid-template-columns: 1fr; }
+  .ethics-inner { grid-template-columns: 1fr; }
+  .ethics-pledge { position: static; }
+  .test-grid { grid-template-columns: 1fr; }
+  footer { grid-template-columns: 1fr 1fr; }
+  .discover-layout { grid-template-columns: 1fr; }
+  .filter-sidebar { display: none; }
+  .profile-form-ui { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a class="nav-logo" href="#">Lumi<em>na</em></a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#values">Our values</a>
+    <a href="#profiles">Profiles</a>
+    <a href="#join" class="nav-cta">Join Lumina</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-eyebrow">Physician matchmaking &amp; marriage</span>
+    <h1>Where <em>medicine</em><br>meets meaningful<br>connection</h1>
+    <p class="hero-sub">Lumina is a curated matchmaking community for physicians seeking loving, lasting partnerships — built on integrity, verified credentials, and genuine intent.</p>
+    <div class="hero-actions">
+      <a href="#join" class="btn-primary">Begin your journey</a>
+      <a href="#how" class="btn-ghost">Learn how it works</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-cards">
+      <div class="profile-preview">
+        <div class="avatar-circle av-sage">🌿</div>
+        <div>
+          <div class="preview-name">Sophia R., MD</div>
+          <div class="preview-meta">Pediatrics · Boston</div>
+          <span class="verified-tag">✓ Verified</span>
+        </div>
+        <div class="preview-compat">94% match</div>
+      </div>
+      <div class="profile-preview">
+        <div class="avatar-circle av-gold">🌾</div>
+        <div>
+          <div class="preview-name">James K., MD</div>
+          <div class="preview-meta">Cardiology · Chicago</div>
+          <span class="verified-tag">✓ Verified</span>
+        </div>
+        <div class="preview-compat">87% match</div>
+      </div>
+      <div class="profile-preview">
+        <div class="avatar-circle av-blush">🌸</div>
+        <div>
+          <div class="preview-name">Priya M., MD</div>
+          <div class="preview-meta">Family Med. · Austin</div>
+          <span class="verified-tag">✓ Verified</span>
+        </div>
+        <div class="preview-compat">91% match</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div>
+    <div class="stat-num">4,800+</div>
+    <div class="stat-label">Verified Physician Members</div>
+  </div>
+  <div>
+    <div class="stat-num">340+</div>
+    <div class="stat-label">Marriages &amp; Long-term Partnerships</div>
+  </div>
+  <div>
+    <div class="stat-num">96%</div>
+    <div class="stat-label">Report Feeling Genuinely Seen</div>
+  </div>
+  <div>
+    <div class="stat-num">Zero</div>
+    <div class="stat-label">Tolerance for Misrepresentation</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how">
+  <div class="hiw-inner">
+    <div class="hiw-header fade-up">
+      <div class="section-eyebrow">The process</div>
+      <div class="section-title">Intentional from <em>the very first step</em></div>
+      <p class="section-sub">No swiping. No algorithms optimizing for engagement. Just a thoughtful, human-centered process designed for people whose time is precious.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step fade-up">
+        <span class="step-num">01</span>
+        <div class="step-icon">🔐</div>
+        <h3>Credential verification</h3>
+        <p>Before your profile is visible, our team verifies your medical license through official state boards. Your peers deserve to know who you truly are.</p>
+      </div>
+      <div class="step fade-up" style="transition-delay:0.1s">
+        <span class="step-num">02</span>
+        <div class="step-icon">💬</div>
+        <h3>Intent interview</h3>
+        <p>A written questionnaire — and optionally a brief video call with a Lumina advisor — establishes that your intentions toward marriage and lasting partnership are sincere.</p>
+      </div>
+      <div class="step fade-up" style="transition-delay:0.2s">
+        <span class="step-num">03</span>
+        <div class="step-icon">🌿</div>
+        <h3>Values-first matching</h3>
+        <p>We surface a curated handful of compatible profiles weekly — weighted by life goals, family intentions, spirituality, and lifestyle — not just attraction.</p>
+      </div>
+      <div class="step fade-up" style="transition-delay:0.3s">
+        <span class="step-num">04</span>
+        <div class="step-icon">💌</div>
+        <h3>Thoughtful introductions</h3>
+        <p>When mutual interest exists, Lumina facilitates a warm introduction with conversation prompts tailored to your shared values — not a cold message into the void.</p>
+      </div>
+      <div class="step fade-up" style="transition-delay:0.4s">
+        <span class="step-num">05</span>
+        <div class="step-icon">🤝</div>
+        <h3>Counselor support</h3>
+        <p>Optional access to relationship counselors who deeply understand the physician lifestyle — the long hours, the emotional weight, and the extraordinary rewards.</p>
+      </div>
+      <div class="step fade-up" style="transition-delay:0.5s">
+        <span class="step-num">06</span>
+        <div class="step-icon">💍</div>
+        <h3>A life together</h3>
+        <p>Our goal is not engagement metrics. Our goal is for you to delete this app because you found your person. That's the only success we celebrate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ETHICS / VALUES -->
+<section class="ethics" id="values">
+  <div class="ethics-inner">
+    <div>
+      <div class="section-eyebrow fade-up">Our commitments</div>
+      <div class="section-title fade-up">Integrity is not a <em>feature</em> — it is the foundation</div>
+      <p class="section-sub fade-up">Physicians are uniquely vulnerable to those who seek proximity to status or income. Lumina exists specifically to protect against that — and to attract partners who are drawn to <em>you</em>.</p>
+      <div class="ethics-list">
+        <div class="ethic-item fade-up">
+          <div class="ethic-icon">✓</div>
+          <div>
+            <div class="ethic-title">Medical license verification</div>
+            <div class="ethic-desc">Every member's credentials are confirmed through official state licensing boards before any profile is published. No exceptions.</div>
+          </div>
+        </div>
+        <div class="ethic-item fade-up" style="transition-delay:0.1s">
+          <div class="ethic-icon">🛡</div>
+          <div>
+            <div class="ethic-title">Genuine intent screening</div>
+            <div class="ethic-desc">Non-physician applicants complete an extensive questionnaire reviewed by human advisors. Those seeking status or financial proximity are declined.</div>
+          </div>
+        </div>
+        <div class="ethic-item fade-up" style="transition-delay:0.2s">
+          <div class="ethic-icon">⚖</div>
+          <div>
+            <div class="ethic-title">No gamification or dark patterns</div>
+            <div class="ethic-desc">Lumina does not optimize for time-on-app. We have no streak rewards, no push notifications engineered for compulsion. Your wellbeing comes first.</div>
+          </div>
+        </div>
+        <div class="ethic-item fade-up" style="transition-delay:0.3s">
+          <div class="ethic-icon">🚫</div>
+          <div>
+            <div class="ethic-title">Zero tolerance for misrepresentation</div>
+            <div class="ethic-desc">Any member who misrepresents their identity, profession, financial situation, or intentions is immediately and permanently removed.</div>
+          </div>
+        </div>
+        <div class="ethic-item fade-up" style="transition-delay:0.4s">
+          <div class="ethic-icon">🔒</div>
+          <div>
+            <div class="ethic-title">Private by default</div>
+            <div class="ethic-desc">Your profile is never searchable by name. Photos are blurred until mutual interest is established. Your privacy is protected at every stage.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ethics-pledge fade-up">
+      <p class="pledge-quote">"You have given years to your patients. You deserve a partner who chooses you for who you are — fully, freely, and sincerely."</p>
+      <div class="pledge-points">
+        <div class="pledge-point"><span class="pledge-check">◆</span>Every non-physician member is screened by a human advisor before approval</div>
+        <div class="pledge-point"><span class="pledge-check">◆</span>Compatibility weighting prioritizes shared values and life goals over appearance alone</div>
+        <div class="pledge-point"><span class="pledge-check">◆</span>Profiles are introduced slowly and intentionally — maximum 5 new profiles per week</div>
+        <div class="pledge-point"><span class="pledge-check">◆</span>Relationship counselors available throughout your journey, not just at crisis moments</div>
+        <div class="pledge-point"><span class="pledge-check">◆</span>We celebrate relationships that lead to deletion. That's the point.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE SHOWCASE -->
+<section class="profiles-section" id="profiles">
+  <div class="profiles-inner">
+    <div class="profiles-header fade-up">
+      <div>
+        <div class="section-eyebrow">Sample profiles</div>
+        <div class="section-title">The kind of people <em>you'll meet</em></div>
+      </div>
+      <a href="#join" class="btn-primary">See your matches</a>
+    </div>
+    <div class="profiles-grid">
+      <div class="profile-card fade-up">
+        <div class="card-header bg-sage">
+          <div class="card-av">🌿</div>
+          <div class="card-name-block">
+            <div class="name">Sophia R., 34</div>
+            <div class="spec">Pediatrics · Boston, MA</div>
+            <span class="card-verified">✓ Verified MD</span>
+          </div>
+        </div>
+        <div class="card-body-pad">
+          <p class="card-about">Deeply committed to family medicine and equally to building a family of my own. I believe in Sunday dinners, long hikes, and partners who make you better.</p>
+          <div class="card-tags">
+            <span class="ctag">Family-focused</span>
+            <span class="ctag">Hiking</span>
+            <span class="ctag">Cooking</span>
+            <span class="ctag">Faith</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-city">📍 Boston, MA</span>
+            <span class="card-compat">94% values match</span>
+          </div>
+        </div>
+      </div>
+      <div class="profile-card fade-up" style="transition-delay:0.1s">
+        <div class="card-header bg-gold">
+          <div class="card-av">🌾</div>
+          <div class="card-name-block">
+            <div class="name">James K., 38</div>
+            <div class="spec">Cardiology · Chicago, IL</div>
+            <span class="card-verified">✓ Verified MD</span>
+          </div>
+        </div>
+        <div class="card-body-pad">
+          <p class="card-about">I've spent my career understanding the heart — now I want to understand a person's heart. Seeking someone who values depth, faith, and a life well-lived together.</p>
+          <div class="card-tags">
+            <span class="ctag">Arts &amp; Culture</span>
+            <span class="ctag">Travel</span>
+            <span class="ctag">Faith-aligned</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-city">📍 Chicago, IL</span>
+            <span class="card-compat">87% values match</span>
+          </div>
+        </div>
+      </div>
+      <div class="profile-card fade-up" style="transition-delay:0.2s">
+        <div class="card-header bg-blush">
+          <div class="card-av">🌸</div>
+          <div class="card-name-block">
+            <div class="name">Priya M., 31</div>
+            <div class="spec">Family Medicine · Austin, TX</div>
+            <span class="card-verified">✓ Verified MD</span>
+          </div>
+        </div>
+        <div class="card-body-pad">
+          <p class="card-about">Warm, curious, and ready to stop waiting for the "right time." I want a partner who is equally invested in our growth as in their career.</p>
+          <div class="card-tags">
+            <span class="ctag">Outdoors</span>
+            <span class="ctag">Yoga</span>
+            <span class="ctag">Spirituality</span>
+            <span class="ctag">Family-focused</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-city">📍 Austin, TX</span>
+            <span class="card-compat">91% values match</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP PREVIEW -->
+<section class="app-preview">
+  <div class="app-preview-inner">
+    <div class="fade-up" style="text-align:center">
+      <div class="section-eyebrow">The experience</div>
+      <div class="section-title">A platform as <em>considered</em> as you are</div>
+      <p class="section-sub" style="margin: 0 auto 0">Lumina is designed to feel like a trusted advisor — not an amusement park. Every interaction is purposeful.</p>
+    </div>
+    <div class="app-frame fade-up" style="transition-delay:0.2s">
+      <div class="app-tabs-nav">
+        <button class="app-tab active" onclick="switchAppTab('discover',this)">Discover</button>
+        <button class="app-tab" onclick="switchAppTab('matches',this)">Matches</button>
+        <button class="app-tab" onclick="switchAppTab('myprofile',this)">My Profile</button>
+      </div>
+      <div class="app-content">
+
+        <!-- DISCOVER TAB -->
+        <div class="tab-pane active" id="tab-discover">
+          <div class="discover-layout">
+            <div class="filter-sidebar">
+              <h4>Filter by values</h4>
+              <div class="filter-options">
+                <button class="filter-opt active" onclick="setFilter(this,'all')">All profiles</button>
+                <button class="filter-opt" onclick="setFilter(this,'family')">Family-focused</button>
+                <button class="filter-opt" onclick="setFilter(this,'outdoor')">Outdoors &amp; Active</button>
+                <button class="filter-opt" onclick="setFilter(this,'faith')">Faith-aligned</button>
+                <button class="filter-opt" onclick="setFilter(this,'arts')">Arts &amp; Culture</button>
+              </div>
+            </div>
+            <div class="mini-grid" id="discoverGrid"></div>
+          </div>
+        </div>
+
+        <!-- MATCHES TAB -->
+        <div class="tab-pane" id="tab-matches">
+          <div class="match-list-ui" id="matchListUI"></div>
+        </div>
+
+        <!-- MY PROFILE TAB -->
+        <div class="tab-pane" id="tab-myprofile">
+          <div class="profile-form-ui">
+            <div class="form-fields">
+              <div class="fi-row">
+                <div class="fi"><label>First name</label><input type="text" placeholder="Your name" /></div>
+                <div class="fi"><label>Age</label><input type="number" placeholder="Age" /></div>
+              </div>
+              <div class="fi">
+                <label>Specialty</label>
+                <select>
+                  <option value="">Select specialty</option>
+                  <option>Cardiology</option><option>Pediatrics</option><option>Emergency Medicine</option>
+                  <option>Family Medicine</option><option>Oncology</option><option>Neurology</option>
+                  <option>Psychiatry</option><option>Radiology</option><option>Surgery</option><option>Other</option>
+                </select>
+              </div>
+              <div class="fi">
+                <label>Looking for</label>
+                <select>
+                  <option>Long-term relationship leading to marriage</option>
+                  <option>Long-term relationship</option>
+                  <option>Open to possibilities</option>
+                </select>
+              </div>
+              <div class="fi"><label>About you</label><textarea placeholder="Share your values, what makes you laugh, what you hope for..."></textarea></div>
+              <div class="fi-row">
+                <div class="fi"><label>City</label><input type="text" placeholder="City" /></div>
+                <div class="fi"><label>Faith / spirituality</label><input type="text" placeholder="Optional" /></div>
+              </div>
+              <button class="save-btn" onclick="showNotif('Profile saved — looking great!')">Save profile</button>
+            </div>
+            <div class="pledge-aside">
+              <div class="pledge-aside-title">Your integrity pledge</div>
+              <p class="pledge-aside-text">Your profile is a sincere representation of who you are. Lumina verifies your credentials, but you bring the authenticity.</p>
+              <br/>
+              <p class="pledge-aside-text">Genuine intentions create genuine connections. Every word you write here is an invitation to the right person.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="test-inner">
+    <div class="test-header fade-up">
+      <div class="section-eyebrow">Stories</div>
+      <div class="section-title">They found their <em>person</em></div>
+    </div>
+    <div class="test-grid">
+      <div class="testimonial fade-up">
+        <span class="test-mark">"</span>
+        <p class="test-quote">After years of dates that went nowhere, Lumina introduced me to someone who wasn't intimidated by my work — they were proud of it. We're getting married in the spring.</p>
+        <div class="test-author">
+          <div class="test-av ts">🌿</div>
+          <div><div class="test-name">Dr. Aisha T.</div><div class="test-spec">Oncology · Houston</div></div>
+        </div>
+      </div>
+      <div class="testimonial fade-up" style="transition-delay:0.1s">
+        <span class="test-mark">"</span>
+        <p class="test-quote">The intent screening process actually made me feel safe. I knew anyone I was meeting had been vetted for sincerity. That peace of mind is priceless.</p>
+        <div class="test-author">
+          <div class="test-av tg">🌾</div>
+          <div><div class="test-name">Dr. Marcus H.</div><div class="test-spec">Neurology · Seattle</div></div>
+        </div>
+      </div>
+      <div class="testimonial fade-up" style="transition-delay:0.2s">
+        <span class="test-mark">"</span>
+        <p class="test-quote">I was matched based on my values around family and faith — not just a photo. My husband says he fell in love with who I was on paper before we ever spoke.</p>
+        <div class="test-author">
+          <div class="test-av tb">🌸</div>
+          <div><div class="test-name">Dr. Leila N.</div><div class="test-spec">Psychiatry · New York</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN CTA -->
+<section class="join-cta" id="join">
+  <div class="cta-inner">
+    <div class="cta-divider"></div>
+    <h2 class="fade-up">You've given enough of yourself to medicine. <em>Now invest in your heart.</em></h2>
+    <p class="fade-up" style="transition-delay:0.1s">Lumina opens applications on a rolling basis. Membership is free. Screening is thorough. The result — we hope — is everything.</p>
+    <div class="cta-actions fade-up" style="transition-delay:0.2s">
+      <a href="#" class="btn-primary" onclick="showNotif('Application started — welcome to Lumina ✓')">Apply as a physician</a>
+      <a href="#" class="btn-ghost" onclick="showNotif('Partner application received — our team will review within 48 hours.')">Apply as a partner</a>
+    </div>
+    <p class="cta-note fade-up" style="transition-delay:0.3s">Applications reviewed within 48 hours · Privacy protected · Zero spam commitment</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo">Lumi<em>na</em></div>
+    <p class="footer-tagline">Where medicine meets meaningful connection. Curated matchmaking for physicians seeking lifelong partnership.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Platform</h5>
+    <a href="#">How it works</a>
+    <a href="#">Our values</a>
+    <a href="#">Pricing</a>
+    <a href="#">Success stories</a>
+  </div>
+  <div class="footer-col">
+    <h5>Support</h5>
+    <a href="#">Relationship counseling</a>
+    <a href="#">Safety center</a>
+    <a href="#">Contact us</a>
+    <a href="#">FAQ</a>
+  </div>
+  <div class="footer-col">
+    <h5>Legal</h5>
+    <a href="#">Privacy policy</a>
+    <a href="#">Terms of service</a>
+    <a href="#">Integrity standards</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 Lumina Matchmaking Inc. All rights reserved.</span>
+  <span>Integrity · Privacy · Lasting connection</span>
+</div>
+
+<!-- NOTIFICATION TOAST -->
+<div id="notif" style="
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--ink); color: white; padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-lg); font-size: 0.85rem; font-weight: 300;
+  border-left: 3px solid var(--sage);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none; z-index: 999; white-space: nowrap;
+" id="toast"></div>
+
+<script>
+const profiles = [
+  { name:"Sophia R.", age:34, spec:"Pediatrics", city:"Boston", emoji:"🌿", bg:"gs", tags:["Family","Hiking"], interests:["family","outdoor"], compat:94 },
+  { name:"James K.", age:38, spec:"Cardiology", city:"Chicago", emoji:"🌾", bg:"gp", tags:["Arts","Faith"], interests:["arts","faith"], compat:87 },
+  { name:"Priya M.", age:31, spec:"Family Med.", city:"Austin", emoji:"🌸", bg:"gb", tags:["Outdoors","Faith"], interests:["outdoor","faith"], compat:91 },
+  { name:"Daniel W.", age:36, spec:"Psychiatry", city:"New York", emoji:"🌿", bg:"gs", tags:["Music","Family"], interests:["arts","family"], compat:89 },
+  { name:"Amara T.", age:33, spec:"Oncology", city:"Houston", emoji:"🌾", bg:"gp", tags:["Travel","Family"], interests:["outdoor","family"], compat:92 },
+  { name:"Liam O.", age:40, spec:"Surgery", city:"Seattle", emoji:"🌸", bg:"gb", tags:["Faith","Outdoors"], interests:["faith","outdoor"], compat:85 },
+];
+
+const liked = new Set();
+let currentFilter = 'all';
+
+function renderDiscover(filter) {
+  const grid = document.getElementById('discoverGrid');
+  const filtered = filter === 'all' ? profiles : profiles.filter(p => {
+    if (filter === 'family') return p.interests.includes('family');
+    if (filter === 'outdoor') return p.interests.includes('outdoor');
+    if (filter === 'faith') return p.interests.includes('faith');
+    if (filter === 'arts') return p.interests.includes('arts');
+    return true;
+  });
+  grid.innerHTML = filtered.map((p,i) => `
+    <div class="mini-card" id="mc-${i}">
+      <div class="mini-top ${p.bg}">
+        <div class="mini-av">${p.emoji}</div>
+        <div>
+          <div class="mini-name">${p.name}, ${p.age}</div>
+          <div class="mini-spec">${p.spec} · ${p.city}</div>
+        </div>
+      </div>
+      <div class="mini-body">
+        <div class="mini-tags">${p.tags.map(t=>`<span class="mini-tag">${t}</span>`).join('')}</div>
+        <button class="mini-action ${liked.has(i)?'':''}\"
+          style="${liked.has(i)?'background:var(--sage-light)':''}"
+          onclick="likeProfile(${i},'${p.name}')">
+          ${liked.has(i)?'Liked ✓':'Express interest'}
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function likeProfile(i, name) {
+  if (liked.has(i)) return;
+  liked.add(i);
+  renderDiscover(currentFilter);
+  renderMatches();
+  showNotif('You liked ' + name + ' — we\'ll notify you if it\'s mutual!');
+}
+
+function setFilter(el, val) {
+  document.querySelectorAll('.filter-opt').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  currentFilter = val;
+  renderDiscover(val);
+}
+
+const baseMatches = [
+  { name:"Sophia R.", emoji:"🌿", cls:"ms", msg:"Would love to hear about your work in Boston!", time:"2h ago", unread:true, compat:94 },
+  { name:"Amara T.", emoji:"🌾", cls:"mg", msg:"That hiking trail you mentioned — tell me more!", time:"1d ago", unread:false, compat:92 },
+];
+
+function renderMatches() {
+  const list = document.getElementById('matchListUI');
+  const extra = [...liked].map(i => profiles[i]).filter(p => !baseMatches.find(m => m.name === p.name));
+  const all = [...baseMatches, ...extra.map(p => ({
+    name: p.name, emoji: p.emoji, cls: 'mb', msg: 'New mutual match — say hello!', time: 'just now', unread: true, compat: p.compat
+  }))];
+  list.innerHTML = all.map(m => `
+    <div class="match-item ${m.unread?'new':''}">
+      <div class="match-av ${m.cls}">${m.emoji}</div>
+      <div>
+        <div class="match-name">${m.name}</div>
+        <div class="match-msg">${m.msg}</div>
+      </div>
+      <div class="match-right">
+        <div class="match-time">${m.time}</div>
+        <div class="match-compat">${m.compat}% match</div>
+        ${m.unread ? '<div class="unread-dot"></div>' : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function switchAppTab(tab, el) {
+  document.querySelectorAll('.app-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+function showNotif(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(80px)'; }, 3500);
+}
+
+// Intersection observer for fade-up animations
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+renderDiscover('all');
+renderMatches();
+</script>
+</body>
+</html>
