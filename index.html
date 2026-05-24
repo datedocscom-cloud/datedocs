@@ -236,6 +236,7 @@
   .modal textarea { resize: vertical; min-height: 80px; }
   .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
   /* --- Auth / editor / messaging UI --- */
+  .confirm-icon { font-size:44px; line-height:1; margin-bottom:8px; }
   .editor-photo-row { display:flex; gap:16px; align-items:center; margin-bottom:8px; }
   .editor-photo-ph {
     width:96px; height:96px; border-radius:12px; flex:none;
@@ -360,16 +361,34 @@
 <div class="modal-backdrop" id="auth-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeAuth()" aria-label="Close">&times;</button>
-    <h3 class="serif" id="auth-title">Sign In</h3>
-    <p id="auth-sub" style="font-size:13px;color:var(--muted);margin-bottom:4px;">Use your email or phone number.</p>
-    <label>Email or phone</label>
-    <input type="text" id="auth-id" placeholder="you@email.com or 555-123-4567" autocomplete="username" />
-    <label>Password</label>
-    <input type="password" id="auth-pw" placeholder="••••••••" autocomplete="current-password" />
-    <p id="auth-err" style="color:var(--accent);font-size:12px;min-height:14px;margin:4px 0 0;"></p>
-    <div class="modal-actions">
-      <button class="btn" id="auth-switch" onclick="toggleAuthMode()">Need an account?</button>
-      <button class="btn btn-primary" id="auth-go" onclick="submitAuth()">Sign In</button>
+    <div id="auth-form">
+      <h3 class="serif" id="auth-title">Sign In</h3>
+      <p id="auth-sub" style="font-size:13px;color:var(--muted);margin-bottom:4px;">Use your email address.</p>
+      <label>Email</label>
+      <input type="text" id="auth-id" placeholder="you@email.com" autocomplete="username" />
+      <label>Password</label>
+      <input type="password" id="auth-pw" placeholder="••••••••" autocomplete="current-password" />
+      <p id="auth-err" style="color:var(--accent);font-size:12px;min-height:14px;margin:4px 0 0;"></p>
+      <div class="modal-actions">
+        <button class="btn" id="auth-switch" onclick="toggleAuthMode()">Need an account?</button>
+        <button class="btn btn-primary" id="auth-go" onclick="submitAuth()">Sign In</button>
+      </div>
+    </div>
+    <div id="auth-confirm" style="display:none; text-align:center; padding:8px 4px 4px;">
+      <div class="confirm-icon">✉️</div>
+      <h3 class="serif" style="margin-bottom:8px;">Check your email</h3>
+      <p style="font-size:14px;color:var(--fg);line-height:1.6;margin-bottom:6px;">
+        We sent a confirmation link to<br><strong id="auth-confirm-email" style="color:var(--accent);"></strong>.
+      </p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;">
+        Open that email and click the link to confirm your account, then come back here and sign in.
+        Don't see it? Check your spam folder.
+      </p>
+      <div class="modal-actions" style="justify-content:center;">
+        <button class="btn" onclick="resendConfirm()">Resend email</button>
+        <button class="btn btn-primary" onclick="backToSignIn()">Back to sign in</button>
+      </div>
+      <p id="auth-confirm-note" style="font-size:12px;color:var(--muted);min-height:14px;margin-top:8px;"></p>
     </div>
   </div>
 </div>
@@ -874,7 +893,14 @@ async function loadProfiles(){
 
 /* ---------- AUTH ---------- */
 let authMode = 'signin';
-function openAuth(mode){ authMode = mode||'signin'; renderAuthMode(); document.getElementById('auth-modal').classList.add('open'); }
+function openAuth(mode){
+  authMode = mode||'signin';
+  // always show the form (not a stale confirmation panel)
+  document.getElementById('auth-form').style.display = '';
+  document.getElementById('auth-confirm').style.display = 'none';
+  renderAuthMode();
+  document.getElementById('auth-modal').classList.add('open');
+}
 function closeAuth(){ document.getElementById('auth-modal').classList.remove('open'); document.getElementById('auth-err').textContent=''; }
 function renderAuthMode(){
   const signup = authMode === 'signup';
@@ -887,6 +913,7 @@ function renderAuthMode(){
 }
 function toggleAuthMode(){ authMode = authMode === 'signup' ? 'signin' : 'signup'; renderAuthMode(); }
 
+let lastSignupEmail = '';
 async function submitAuth(){
   const email = document.getElementById('auth-id').value.trim().toLowerCase();
   const pw = document.getElementById('auth-pw').value;
@@ -900,19 +927,47 @@ async function submitAuth(){
       const { data, error } = await sb.auth.signUp({ email, password: pw });
       if (error){ err.textContent = error.message; return; }
       if (!data.session){
-        err.textContent = 'Account created! Check your email to confirm, then sign in.';
-        authMode = 'signin'; renderAuthMode();
+        // Email confirmation required — show the clear "check your email" screen
+        lastSignupEmail = email;
+        showConfirmPanel(email);
         return;
       }
+      // Confirmation disabled in Supabase → user is logged in immediately
       await afterLogin(); closeAuth(); openEditor();
     } else {
       const { error } = await sb.auth.signInWithPassword({ email, password: pw });
-      if (error){ err.textContent = error.message; return; }
+      if (error){
+        err.textContent = /confirm/i.test(error.message)
+          ? 'Please confirm your email first — check your inbox for the link.'
+          : error.message;
+        return;
+      }
       await afterLogin(); closeAuth();
     }
   } finally {
     document.getElementById('auth-go').disabled = false;
   }
+}
+
+/* Show / hide the "check your email" confirmation panel */
+function showConfirmPanel(email){
+  document.getElementById('auth-form').style.display = 'none';
+  document.getElementById('auth-confirm').style.display = '';
+  document.getElementById('auth-confirm-email').textContent = email;
+  document.getElementById('auth-confirm-note').textContent = '';
+}
+function backToSignIn(){
+  document.getElementById('auth-confirm').style.display = 'none';
+  document.getElementById('auth-form').style.display = '';
+  authMode = 'signin'; renderAuthMode();
+  document.getElementById('auth-pw').value = '';
+}
+async function resendConfirm(){
+  const note = document.getElementById('auth-confirm-note');
+  if (!lastSignupEmail){ note.textContent = ''; return; }
+  note.textContent = 'Sending…';
+  const { error } = await sb.auth.resend({ type: 'signup', email: lastSignupEmail });
+  note.textContent = error ? ('Could not resend: ' + error.message) : 'Sent! Check your inbox again.';
 }
 async function logout(){ await sb.auth.signOut(); SESSION_USER=null; MY_PROFILE=null; teardownRealtime(); onAuthChange(); await loadProfiles(); }
 
